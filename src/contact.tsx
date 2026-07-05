@@ -48,7 +48,7 @@ export default function Contact() {
       </Helmet>
       <div className="max-w-2xl py-16 min-h-[calc(100vh-80px)] snap-start">
         <div className="mb-12">
-          <h2 className="font-display text-[clamp(3rem,6vw,6rem)] leading-[0.85] tracking-[-0.06em] uppercase mb-4">Contact</h2>
+          <h2 className="font-display text-[clamp(2.5rem,8vw,6rem)] leading-[0.85] tracking-[-0.06em] uppercase mb-4 break-all md:break-normal">Contact</h2>
           <p className="max-w-[500px] text-[1.1rem] text-ink-dim leading-relaxed">
             For directing inquiries, script consultations, or general questions, please leave a message below.
           </p>

@@ -87,9 +87,9 @@ export default function Layout({ children }: { children: ReactNode }) {
           <div className="contacts"></div>
         </div>
 
-        <footer className="py-10 border-t border-ink-faint flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-ink-dim snap-start">
+        <footer className="pt-10 pb-28 md:pb-10 border-t border-ink-faint flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-ink-dim snap-start relative">
           <div>© {new Date().getFullYear()} Hussain Ahmad</div>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 md:pr-16">
             <a href="https://letterboxd.com/hussainrates5_5/" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Letterboxd</a>
             <a href="https://www.youtube.com/@HussainwithaCyber-shot/featured" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">YouTube</a>
             <a href="https://www.instagram.com/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Instagram</a>
