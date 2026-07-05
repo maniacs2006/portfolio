@@ -5,6 +5,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Layout from './layout';
 import Page from './page';
 import Contact from './contact';
@@ -22,6 +23,7 @@ export default function App() {
           </Routes>
         </Layout>
       </Router>
+      <SpeedInsights />
     </HelmetProvider>
   );
 }
