@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] h-screen bg-bg text-ink font-sans overflow-hidden">
+    <div className="flex flex-col md:grid md:grid-cols-[260px_1fr] h-screen bg-bg text-ink font-sans overflow-hidden">
       {/* Fixed Progress Bar Container */}
       <div className="fixed top-0 left-0 md:left-[260px] right-0 h-[2px] z-50 pointer-events-none">
         <div 
@@ -52,26 +52,28 @@ export default function Layout({ children }: { children: ReactNode }) {
         />
       </div>
 
-      <aside className="border-r border-ink-faint flex flex-col justify-between p-8 h-screen relative z-10">
-        <div className="top">
-          <div className="brand mb-16">
-            <h1 className="font-display text-2xl leading-[0.9] tracking-[-0.04em] uppercase mb-2">Hussain<br/>Ahmad</h1>
-            <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">Writer & Director</span>
+      <aside className="border-b md:border-b-0 md:border-r border-ink-faint flex flex-row md:flex-col justify-between p-4 md:p-8 h-auto md:h-screen relative z-10 shrink-0">
+        <div className="top flex flex-row md:flex-col items-center md:items-start justify-between w-full md:w-auto">
+          <div className="brand md:mb-16 flex items-center md:items-start gap-3 md:block">
+            <h1 className="font-display text-lg md:text-2xl leading-[0.95] tracking-[-0.04em] uppercase mb-0 md:mb-2">
+              Hussain<br className="hidden md:block" /><span className="md:hidden"> </span>Ahmad
+            </h1>
+            <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim hidden md:block">Writer & Director</span>
           </div>
-          <nav className="flex flex-col gap-4">
-            <Link to="/" className={`font-medium text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Selected Works</Link>
-            <a href="https://linktr.ee/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="font-medium text-[0.8rem] uppercase tracking-[0.05em] text-ink-dim hover:text-ink transition-colors">Linktree</a>
-            <Link to="/contact" className={`font-medium text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/contact') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Contact</Link>
+          <nav className="flex flex-row md:flex-col gap-4 md:gap-4 items-center md:items-start">
+            <Link to="/" className={`font-medium text-[0.65rem] md:text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Selected Works</Link>
+            <a href="https://linktr.ee/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="font-medium text-[0.65rem] md:text-[0.8rem] uppercase tracking-[0.05em] text-ink-dim hover:text-ink transition-colors">Linktree</a>
+            <Link to="/contact" className={`font-medium text-[0.65rem] md:text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/contact') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Contact</Link>
           </nav>
         </div>
-        <div className="bottom">
+        <div className="bottom hidden md:block">
           <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">Folio © {new Date().getFullYear()}</span>
         </div>
       </aside>
 
       <main 
         ref={mainRef}
-        className="h-screen overflow-y-auto overflow-x-hidden px-8 md:px-16 snap-y snap-proximity relative"
+        className="flex-1 overflow-y-auto overflow-x-hidden px-4 md:px-16 snap-y snap-proximity relative"
         onScroll={handleScroll}
       >
         {children}

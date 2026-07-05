@@ -45,14 +45,14 @@ export default function Page() {
                </div>
                <div className="h-12 w-40 bg-ink-faint"></div>
              </div>
-             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[450px]">
-               <div className="bg-[#151518] border border-ink-faint flex flex-col">
+             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-[450px]">
+               <div className="bg-[#151518] border border-ink-faint flex flex-col h-[250px] lg:h-auto">
                  <div className="h-10 border-b border-ink-faint"></div>
                </div>
-               <div className="bg-[#151518] border border-ink-faint flex flex-col">
+               <div className="bg-[#151518] border border-ink-faint flex flex-col h-[250px] lg:h-auto">
                  <div className="h-10 border-b border-ink-faint"></div>
                </div>
-               <div className="bg-[#151518] border border-ink-faint flex flex-col">
+               <div className="bg-[#151518] border border-ink-faint flex flex-col h-[250px] lg:h-auto">
                  <div className="h-10 border-b border-ink-faint"></div>
                </div>
              </div>

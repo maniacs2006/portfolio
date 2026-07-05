@@ -54,7 +54,7 @@ export default function Projectcard({ data }: { data: project }) {
       id={data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')} 
       className={`min-h-[100vh] snap-start flex flex-col justify-center py-16 border-b border-ink-faint transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
     >
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 lg:mb-12 gap-8">
         <div className="flex-1 min-w-0 pr-0 lg:pr-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="font-mono text-[0.9rem] text-accent block">Release / {data.year}</span>
@@ -82,9 +82,11 @@ export default function Projectcard({ data }: { data: project }) {
               </span>
             </div>
           </div>
-          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3.5rem)] leading-[0.9] tracking-[-0.04em] uppercase mb-4 group cursor-pointer break-all md:break-words" style={{ position: 'relative', display: 'inline-block' }}>
+          <h2 className="font-display text-[clamp(1.5rem,3.5vw,3.5rem)] leading-[0.9] tracking-[-0.04em] mb-4 group cursor-pointer break-all md:break-words" style={{ position: 'relative', display: 'inline-block' }}>
             <span className="relative z-10 transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent group-hover:to-ink">
-              {data.title}
+              {data.title.split('|').map((part, index) => (
+                index === 0 ? <span key={index} className="uppercase">{part}</span> : <span key={index} className="lowercase">|{part}</span>
+              ))}
             </span>
           </h2>
           <p className="max-w-[500px] text-[1.1rem] text-ink-dim leading-relaxed">
@@ -103,8 +105,8 @@ export default function Projectcard({ data }: { data: project }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[450px]">
-        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-[450px]">
+        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20 h-[300px] lg:h-auto">
           <div className="p-3 flex justify-between items-center border-b border-ink-faint">
             <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">[01] Script.pdf</span>
           </div>
@@ -128,7 +130,7 @@ export default function Projectcard({ data }: { data: project }) {
           </div>
         </div>
 
-        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20">
+        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20 h-[300px] lg:h-auto">
           <div className="p-3 flex justify-between items-center border-b border-ink-faint">
             <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">[02] Storyboard.pdf</span>
           </div>
@@ -152,7 +154,7 @@ export default function Projectcard({ data }: { data: project }) {
           </div>
         </div>
 
-        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20">
+        <div className="bg-[#151518] border border-ink-faint flex flex-col relative transition-all duration-500 ease-out hover:scale-[1.02] hover:border-ink/30 hover:shadow-[0_0_25px_rgba(255,255,255,0.04)] z-10 hover:z-20 h-[300px] lg:h-auto">
           <div className="p-3 flex justify-between items-center border-b border-ink-faint">
             <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">[03] Motion_Sequence</span>
           </div>
