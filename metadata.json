@@ -1,0 +1,6 @@
+{
+  "name": "Filmmaker Portfolio",
+  "description": "A cinematic portfolio website for a filmmaker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
