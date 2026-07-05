@@ -1,40 +1,110 @@
-import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { ReactNode, useState, UIEvent, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Newsletter from './components/newsletter';
-import ScrollToTop from './components/scroll-to-top';
-import ScrollProgress from './components/scroll-progress';
+import { ArrowUp } from 'lucide-react';
 
-export default function layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const isActive = (path: string) => location.pathname === path;
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const mainRef = useRef<HTMLElement>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  const handleScroll = (e: UIEvent<HTMLElement>) => {
+    const target = e.currentTarget;
+    const scrollAmount = target.scrollTop;
+    const maxScroll = target.scrollHeight - target.clientHeight;
+    
+    if (scrollAmount > 300) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+
+    if (maxScroll <= 0) {
+      setScrollProgress(0);
+      return;
+    }
+    
+    const progress = (scrollAmount / maxScroll) * 100;
+    setScrollProgress(progress);
+  };
+
+  const scrollToTop = () => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col font-sans">
-      <ScrollProgress />
-      <header className="flex justify-between items-center px-10 h-24 border-b border-zinc-900">
-        <div>
-          <h1 className="text-2xl font-light tracking-[0.2em] uppercase">Hussain Ahmad</h1>
-          <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Writer & Director</p>
+    <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] h-screen bg-bg text-ink font-sans overflow-hidden">
+      {/* Fixed Progress Bar Container */}
+      <div className="fixed top-0 left-0 md:left-[260px] right-0 h-[2px] z-50 pointer-events-none">
+        <div 
+          className="h-full bg-accent transition-all duration-150 ease-out origin-left" 
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
+      <aside className="border-r border-ink-faint flex flex-col justify-between p-8 h-screen relative z-10">
+        <div className="top">
+          <div className="brand mb-16">
+            <h1 className="font-display text-2xl leading-[0.9] tracking-[-0.04em] uppercase mb-2">Hussain<br/>Ahmad</h1>
+            <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">Writer & Director</span>
+          </div>
+          <nav className="flex flex-col gap-4">
+            <Link to="/" className={`font-medium text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Selected Works</Link>
+            <a href="https://linktr.ee/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="font-medium text-[0.8rem] uppercase tracking-[0.05em] text-ink-dim hover:text-ink transition-colors">Linktree</a>
+            <Link to="/contact" className={`font-medium text-[0.8rem] uppercase tracking-[0.05em] transition-colors ${isActive('/contact') ? 'text-ink' : 'text-ink-dim hover:text-ink'}`}>Contact</Link>
+          </nav>
         </div>
-        <nav className="flex gap-8 text-[11px] uppercase tracking-widest font-medium text-zinc-400">
-          <Link to="/" className="text-white hover:text-white transition-colors">Selected Works</Link>
-          <a href="https://linktr.ee/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Linktree</a>
-          <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-        </nav>
-      </header>
-      
-      <main className="flex-1 px-10 py-10">
+        <div className="bottom">
+          <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim">Folio © {new Date().getFullYear()}</span>
+        </div>
+      </aside>
+
+      <main 
+        ref={mainRef}
+        className="h-screen overflow-y-auto overflow-x-hidden px-8 md:px-16 snap-y snap-proximity relative"
+        onScroll={handleScroll}
+      >
         {children}
-      </main>
-      
-      <Newsletter />
-      
-      <footer className="px-10 h-12 border-t border-zinc-900 flex items-center justify-between text-[9px] uppercase tracking-widest text-zinc-600">
-        <div>© {new Date().getFullYear()} Hussain Ahmad</div>
-        <div className="flex gap-6">
-          <a href="https://letterboxd.com/hussainrates5_5/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Letterboxd</a>
-          <a href="https://www.youtube.com/@HussainwithaCyber-shot/featured" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YouTube</a>
-          <a href="https://www.instagram.com/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
+        
+        {/* Footer Content */}
+        <div className="py-24 grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-16 snap-start">
+          <div className="newsletter">
+            <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-ink-dim block mb-4">Mailing List</span>
+            <Newsletter />
+          </div>
+          <div className="contacts"></div>
         </div>
-      </footer>
-      <ScrollToTop />
+
+        <footer className="py-10 border-t border-ink-faint flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-ink-dim snap-start">
+          <div>© {new Date().getFullYear()} Hussain Ahmad</div>
+          <div className="flex gap-8">
+            <a href="https://letterboxd.com/hussainrates5_5/" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Letterboxd</a>
+            <a href="https://www.youtube.com/@HussainwithaCyber-shot/featured" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">YouTube</a>
+            <a href="https://www.instagram.com/hussainwithacybershot" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">Instagram</a>
+          </div>
+        </footer>
+      </main>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-50 p-3 bg-ink text-bg rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
+        }`}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp size={20} />
+      </button>
     </div>
   );
 }
